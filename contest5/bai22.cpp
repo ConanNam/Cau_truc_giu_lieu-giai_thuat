@@ -1,16 +1,13 @@
 #include<bits/stdc++.h>
 using namespace std;
 long a[1005];
+long dp[1005];
 long qhd(long a[], int n){
-	long incl = a[0];
-	long excl = 0;
-	
-	for(int i = 1; i < n; i++){
-		long temp = incl;
-		incl = max(incl,excl + a[i]);
-		excl = temp;
-	}
-	return max(incl,excl);
+	dp[1] = a[1];
+    	dp[2] = max(a[1],a[2]);
+    for(int i = 3; i <= n ; i++)
+        dp[i] = max(dp[i - 2] + a[i], dp[i - 1]);
+return dp[n];
 }
 
 int main(){
