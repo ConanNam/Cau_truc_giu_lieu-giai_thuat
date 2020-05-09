@@ -1,7 +1,7 @@
 #include<bits/stdc++.h>
 using namespace std;
 long a[1005];
-long dp[1005];
+long dp[100005];
 long qhd(long a[], int n){
 	dp[1] = a[1];
     	dp[2] = max(a[1],a[2]);
