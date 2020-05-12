@@ -1,30 +1,38 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
+#define real_hacker ios_base::sync_with_stdio(false)
+#define pb push_back
+#define ll long long
+#define mp make_pair
+#define pii pair<int, int>
+#define null NULL
+const int N = 1005;
+const bool MULTI_TEST = true;
 using namespace std;
-int F[105][105];
 
-int qhd(string s1, string s2){
-	memset(F,0,sizeof(F));
-	int rs = 0, m = s1.length(), n = s2.length();
-	for(int i = 1; i <= m; i++){
-		for(int j = 1; j <= n; j++){
-			if (s1[i-1] == s2[j-1]){
-				F[i][j] = F[i-1][j-1] + 1;
-			}else{
-				F[i][j] = max(F[i-1][j], F[i][j-1]);
+
+
+void solve(){
+	string a,b;
+	cin >> a >> b;
+	vector<vector <int> > dp(a.size()+1,vector<int>(b.size()+1,0));
+	for(int i=0;i<=a.size();i++) dp[i][0] = i;
+	for(int i=0;i<=b.size();i++) dp[0][i] = i;
+	for(int i=1;i<=a.size();i++){
+		for(int j=1;j<=b.size();j++){
+			if(a[i-1] == b[j-1]) dp[i][j] = dp[i-1][j-1];
+			else{
+				dp[i][j] = min(min(dp[i-1][j-1],dp[i-1][j]),dp[i][j-1])+1;
 			}
 		}
 	}
-	
-	rs = max(m,n) - F[m][n];
-	return rs;
+	cout << dp[a.size()][b.size()] <<endl;
 }
 
 int main(){
-	int t;
-	cin >> t;
-	while(t--){
-		string s1, s2;
-		cin >> s1 >> s2;
-		cout << qhd(s1,s2) << endl;
-	}
+    int t;
+	t = 1;
+	if(MULTI_TEST) cin >> t;
+    while(t--){solve();}
+    return 0;
 }
+
